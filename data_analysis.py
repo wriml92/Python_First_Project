@@ -1,6 +1,6 @@
 import pandas as pd
 
-# 엑셀 파일 불러오기
+# 범죄 데이터 불러오기
 df = pd.read_excel('data/관서별 5대범죄 발생 및 검거.xlsx')
 
 # 경찰서-구 매핑 딕셔너리
@@ -15,10 +15,10 @@ police_gu_mapping = {
     '방배서': '서초구', '은평서': '은평구', '도봉서': '도봉구'
 }
 
-# '구별' column 생성 (매칭되지 않는 경찰서는 '구 없음'으로 설정)
+# '구별' column 생성
 df['구별'] = df['관서명'].map(police_gu_mapping).fillna('구 없음')
 
-# pivot_table을 사용하여 구별 데이터로 변경하고 합계 계산
+# pivot_table을 사용하여 구별 데이터로 변경
 df_by_gu = pd.pivot_table(
     df,
     index='구별',
@@ -37,8 +37,6 @@ df_by_gu['강도검거율'] = (df_by_gu['강도(검거)'] / df_by_gu['강도(발
 df_by_gu['살인검거율'] = (df_by_gu['살인(검거)'] / df_by_gu['살인(발생)']) * 100
 df_by_gu['절도검거율'] = (df_by_gu['절도(검거)'] / df_by_gu['절도(발생)']) * 100
 df_by_gu['폭력검거율'] = (df_by_gu['폭력(검거)'] / df_by_gu['폭력(발생)']) * 100
-
-# 전체 검거율 계산
 df_by_gu['검거율'] = (df_by_gu['소계(검거)'] / df_by_gu['소계(발생)']) * 100
 
 # 불필요한 컬럼 삭제
@@ -59,10 +57,24 @@ df_by_gu = df_by_gu.rename(columns={
     '폭력(발생)': '폭력'
 })
 
-# DataFrame 출력
-print("\n=== 최종 구별 통계 데이터 미리보기 ===")
-print(df_by_gu)
+# 인구 데이터 불러오기 (index를 구별로 설정)
+pop_df = pd.read_csv('data/pop_kor.csv', index_col='구별')
+
+print("\n=== 인구 데이터 미리보기 ===")
+print(pop_df)
+
+# DataFrame 병합
+df_merged = df_by_gu.join(pop_df)
+
+print("\n=== 병합된 데이터 미리보기 ===")
+print(df_merged)
+
+# 검거율 기준 오름차순 정렬
+df_sorted = df_merged.sort_values('검거율', ascending=True)
+
+print("\n=== 검거율 기준 오름차순 정렬된 데이터 미리보기 ===")
+print(df_sorted)
 
 # 데이터 기본 정보 출력
-print("\n=== 최종 구별 통계 데이터 기본 정보 ===")
-print(df_by_gu.info()) 
+print("\n=== 최종 데이터 기본 정보 ===")
+print(df_sorted.info()) 

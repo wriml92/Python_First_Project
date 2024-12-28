@@ -188,3 +188,21 @@
   나이: 28
   안녕하세요, 페이커! 성인이시군요!
   ```
+
+## 6. Python 라이브러리로 데이터 분석하기
+### 6.1 추가 도전 과제
+1. Python 라이브러리 함수를 사용하여 인구 데이터(pop_kor.csv) 파일을 불러오고, DataFrame을 출력해주세요.
+  - Quiz에서 수행한 DataFrame의 구별 index를 기준으로 marge를 할 것이므로, index를 셋팅해서 불러와 주세요.
+- 참고
+```python
+index_col = '구별'
+```
+2. `join`을 사용하여 Quiz에서 수행한 DataFrame과 인구 데이터 DataFrame을 merge하고, DataFrame을 출력해주세요.
+- 참고
+  - `join` : Quiz에서 수행한 DataFrame의 index를 기준으로 인구 데이터 DataFrame index 중 매칭되는 값을 매김.
+
+3. 새롭게 merge된 DataFrame에서 검거율 기준으로 오름차순 정렬 후, DataFrame을 출력해주세요.
+- 참고
+```python
+ascending=True # 오름차순
+```
