@@ -18,10 +18,20 @@ police_gu_mapping = {
 # '구별' column 생성 (매칭되지 않는 경찰서는 '구 없음'으로 설정)
 df['구별'] = df['관서명'].map(police_gu_mapping).fillna('구 없음')
 
+# pivot_table을 사용하여 구별 데이터로 변경하고 합계 계산
+df_by_gu = pd.pivot_table(
+    df,
+    index='구별',
+    values=['강간(발생)', '강간(검거)', '강도(발생)', '강도(검거)', 
+           '살인(발생)', '살인(검거)', '절도(발생)', '절도(검거)', 
+           '폭력(발생)', '폭력(검거)', '소계(발생)', '소계(검거)'],
+    aggfunc='sum'
+)
+
 # DataFrame 출력
-print("\n=== 구별 컬럼이 추가된 데이터 미리보기 ===")
-print(df)
+print("\n=== 구별 통계 데이터 미리보기 ===")
+print(df_by_gu)
 
 # 데이터 기본 정보 출력
-print("\n=== 데이터 기본 정보 ===")
-print(df.info()) 
+print("\n=== 구별 통계 데이터 기본 정보 ===")
+print(df_by_gu.info()) 
