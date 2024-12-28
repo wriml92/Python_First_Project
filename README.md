@@ -201,7 +201,7 @@ index_col = '구별'
 - 참고
   - `join` : Quiz에서 수행한 DataFrame의 index를 기준으로 인구 데이터 DataFrame index 중 매칭되는 값을 매김.
 
-3. 새롭게 merge된 DataFrame에서 검거율 기준으로 오름차순 정렬 후, DataFrame을 출력해주세요.
+3. 새롭게 merge된 DataFrame에서 `검거율` 기준으로 오름차순 정렬 후, DataFrame을 출력해주세요.
 - 참고
 ```python
 ascending=True # 오름차순
