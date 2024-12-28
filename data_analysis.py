@@ -41,10 +41,28 @@ df_by_gu['폭력검거율'] = (df_by_gu['폭력(검거)'] / df_by_gu['폭력(발
 # 전체 검거율 계산
 df_by_gu['검거율'] = (df_by_gu['소계(검거)'] / df_by_gu['소계(발생)']) * 100
 
+# 불필요한 컬럼 삭제
+del df_by_gu['강간(검거)']
+del df_by_gu['강도(검거)']
+del df_by_gu['살인(검거)']
+del df_by_gu['절도(검거)']
+del df_by_gu['폭력(검거)']
+del df_by_gu['소계(발생)']
+del df_by_gu['소계(검거)']
+
+# 컬럼명 변경
+df_by_gu = df_by_gu.rename(columns={
+    '강간(발생)': '강간',
+    '강도(발생)': '강도',
+    '살인(발생)': '살인',
+    '절도(발생)': '절도',
+    '폭력(발생)': '폭력'
+})
+
 # DataFrame 출력
-print("\n=== 검거율이 추가된 구별 통계 데이터 미리보기 ===")
+print("\n=== 최종 구별 통계 데이터 미리보기 ===")
 print(df_by_gu)
 
 # 데이터 기본 정보 출력
-print("\n=== 구별 통계 데이터 기본 정보 ===")
+print("\n=== 최종 구별 통계 데이터 기본 정보 ===")
 print(df_by_gu.info()) 
