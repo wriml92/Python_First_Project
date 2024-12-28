@@ -28,8 +28,11 @@ df_by_gu = pd.pivot_table(
     aggfunc='sum'
 )
 
+# '구 없음' 행 삭제
+df_by_gu = df_by_gu.drop('구 없음', axis=0)
+
 # DataFrame 출력
-print("\n=== 구별 통계 데이터 미리보기 ===")
+print("\n=== '구 없음' 행이 제거된 구별 통계 데이터 미리보기 ===")
 print(df_by_gu)
 
 # 데이터 기본 정보 출력
