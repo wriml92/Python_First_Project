@@ -31,8 +31,18 @@ df_by_gu = pd.pivot_table(
 # '구 없음' 행 삭제
 df_by_gu = df_by_gu.drop('구 없음', axis=0)
 
+# 각 범죄별 검거율 계산
+df_by_gu['강간검거율'] = (df_by_gu['강간(검거)'] / df_by_gu['강간(발생)']) * 100
+df_by_gu['강도검거율'] = (df_by_gu['강도(검거)'] / df_by_gu['강도(발생)']) * 100
+df_by_gu['살인검거율'] = (df_by_gu['살인(검거)'] / df_by_gu['살인(발생)']) * 100
+df_by_gu['절도검거율'] = (df_by_gu['절도(검거)'] / df_by_gu['절도(발생)']) * 100
+df_by_gu['폭력검거율'] = (df_by_gu['폭력(검거)'] / df_by_gu['폭력(발생)']) * 100
+
+# 전체 검거율 계산
+df_by_gu['검거율'] = (df_by_gu['소계(검거)'] / df_by_gu['소계(발생)']) * 100
+
 # DataFrame 출력
-print("\n=== '구 없음' 행이 제거된 구별 통계 데이터 미리보기 ===")
+print("\n=== 검거율이 추가된 구별 통계 데이터 미리보기 ===")
 print(df_by_gu)
 
 # 데이터 기본 정보 출력
